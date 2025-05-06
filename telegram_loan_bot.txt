@@ -1,0 +1,83 @@
+telegram_loan_bot/
+│
+├── main.py                          # Ponto de entrada principal (modificado)
+├── config.py                        # Configurações e constantes (atualizado)
+│
+├── core/                            # Lógica central
+│   ├── financial_rules.py           # Regras dos 35% e limites
+│   ├── reputation_engine.py         # Sistema de pontos (0-1000)
+│   └── state_manager.py             # Gerenciamento de estados
+│
+├── database/                        # Tudo relacionado a dados
+│   ├── models/
+│   │   ├── Fund.py                  # fundo_total | fundo_disponivel
+│   │   ├── User.py                  # reputação | plano_atual
+│   │   ├── Loan.py                  # empréstimos ativos
+│   │   └── Transaction.py           # histórico financeiro
+│   │
+│   ├── operations/
+│   │   ├── fund_operations.py       # Atualização dos 35%
+│   │   ├── user_operations.py       # CRUD de usuários
+│   │   └── loan_operations.py       # Gerenciamento de empréstimos
+│   │
+│   └── migrations/                  # Scripts de alteração do BD
+│       └── 002_add_fund_columns.sql
+│
+├── modules/
+│   │
+│   ├── user/                        # Módulo do usuário
+│   │   ├── handlers/
+│   │   │   ├── wallet.py            # /depositar /sacar
+│   │   │   ├── profile.py           # /reputação
+│   │   │   └── subscription.py      # /assinar /upgrade
+│   │   │
+│   │   └── services/
+│   │       ├── reputation.py        # Cálculo de pontos
+│   │       └── subscription.py      # Processamento de planos
+│   │
+│   ├── business/                    # Módulo de negócios
+│   │   ├── handlers/
+│   │   │   ├── loan.py              # /emprestar
+│   │   │   └── payment.py           # /pagar
+│   │   │
+│   │   └── services/
+│   │       ├── loan_service.py      # Validação de empréstimos
+│   │       └── interest.py          # Cálculo de juros (50% máx)
+│   │
+│   ├── admin/                       # Módulo administrativo
+│   │   ├── handlers/
+│   │   │   └── approval.py          # /aprovar_123
+│   │   │
+│   │   └── services/
+│   │       ├── audit.py             # Confirmação manual
+│   │       └── fund_monitor.py      # Painel dos 35%
+│   │
+│   └── security/                    # Módulo de segurança (expandido)
+│       ├── auth.py                  # Autenticação 2FA
+│       ├── fraud_detection.py       # Prevenção de abuso
+│       ├── ddos_protection.py       # Nova proteção DDoS
+│       └── captcha.py               # Novo: Desafios CAPTCHA
+│
+├── integrations/
+│   ├── payment_gateways/            # Gateways de pagamento
+│   ├── kyc_providers/               # Validação de identidade
+│   └── firewall/                    # Novo: Integração com firewalls externos
+│       └── cloudflare.py            # Novo: Integração Cloudflare API
+│
+├── utils/                           # Utilitários
+│   ├── formatters.py                # Formatação de valores
+│   ├── log_utils.py                 # Gerenciamento de logs
+│   └── rate_limit.py                # Novo: Utilitários de limitação de taxa
+│
+├── logs/                            # Arquivos de log
+│   ├── transactions/
+│   ├── admin_actions/
+│   └── security/                    # Novo: Logs de segurança
+│       ├── ddos_attempts.log        # Novo: Registro de ataques DDoS
+│       └── blocked_entities.log     # Novo: Usuários/IPs bloqueados
+│
+└── tests/                           # Testes automatizados
+    ├── test_fund_rules.py           # Testes dos 35%
+    ├── test_reputation.py           # Testes de pontos
+    ├── test_ddos_protection.py      # Novo: Testes de proteção DDoS
+    └── test_rate_limiting.py        # Novo: Testes de limitação de taxa
